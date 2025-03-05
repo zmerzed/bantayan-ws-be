@@ -1,0 +1,75 @@
+{
+  "name": "Kolette/reporting",
+  "description": "Reporting Module",
+  "homepage": "https://gitlab.com/Kolette/backend-laravel-module-template",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.2",
+    "bensampo/laravel-enum": "^6.3",
+    "doctrine/dbal": "^3.4",
+    "guzzlehttp/guzzle": "^7.0",
+    "konekt/concord": "^1.10.2",
+    "illuminate/support": "^10.9.0",
+    "spatie/laravel-query-builder": "^5.0.3",
+    "spatie/laravel-medialibrary": "^10.1",
+    "laravel/sanctum": "^3.0"
+  },
+  "require-dev": {
+    "nunomaduro/collision": "^6.1",
+    "nunomaduro/larastan": "^v2.0.0",
+    "nunomaduro/phpinsights": "^2.0",
+    "orchestra/canvas": "^v7.0.0",
+    "orchestra/testbench": "^v7.6.0",
+    "phpunit/phpunit": "^9.5.10",
+    "psalm/plugin-phpunit": "^0.16.1",
+    "squizlabs/php_codesniffer": "^3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kolette\\Reporting\\": "src/",
+      "Kolette\\Reporting\\Seeds\\": "src/resources/database/seeds"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {}
+  },
+  "authors": [
+    {
+      "name": "Anthony Alaan",
+      "email": "anthony.alaan@Kolette.com.au",
+      "homepage": "https://gitlab.com/anthony.alaan.Kolette",
+      "role": "Developer"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "dont-discover": [
+      ]
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/package-versions-deprecated": true
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-f": "vendor/bin/phpunit --filter",
+    "analyze": "vendor/bin/phpstan analyze",
+    "canvas": "exec canvas",
+    "insights": "vendor/bin/phpinsights",
+    "check-code-quality": [
+      "@analyze",
+      "@test",
+      "@insights"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
