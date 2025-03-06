@@ -16,7 +16,6 @@ class CustomerSeeder extends Seeder
     {
         $noOfCustomers = 50;
         
-    
         if (env('DB_CONNECTION') !== 'sqlite') {
             \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
