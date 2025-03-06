@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex('users_email_unique');
-            $table->string('email')->nullable()->change();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropIndex('users_email_unique');
+        //     $table->string('email')->nullable()->change();
+        // });
     }
 
     /**
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('email')->nullable()->unique()->change();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->string('email')->nullable()->unique()->change();
+        // });
     }
 };
