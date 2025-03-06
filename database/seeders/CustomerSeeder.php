@@ -17,13 +17,23 @@ class CustomerSeeder extends Seeder
         $noOfCustomers = 50;
         
         if (env('DB_CONNECTION') !== 'sqlite') {
-            \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            try {
+                \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            } catch (\Exception $e) {
+
+            }
         }
 
         \DB::table('customers')->truncate();
 
         if (env('DB_CONNECTION') !== 'sqlite') {
-            \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+           
+            try {
+                \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            } catch (\Exception $e) {
+
+            }
         }
 
 

@@ -17,14 +17,22 @@ class GenerateStartReadingsSeeder extends Seeder
     {
 
         if (env('DB_CONNECTION') !== 'sqlite') {
-            \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            try {
+                \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            } catch (\Exception $e) {
+
+            }
         }
 
         \DB::table('readings')->truncate();
         \DB::table('reading_batches')->truncate();
        
         if (env('DB_CONNECTION') !== 'sqlite') {
-            \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            try {
+                \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            } catch (\Exception $e) {
+
+            }
         }
 
         $readingBatch = new ReadingBatch();
