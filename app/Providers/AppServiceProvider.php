@@ -23,6 +23,14 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
+        if (env('DB_CONNECTION') === 'sqlite') {
+            $databasePath = env('DB_DATABASE', database_path('database.sqlite'));
+    
+            if (!File::exists($databasePath)) {
+                File::put($databasePath, '');
+            }
+        }
+        
         $this->mergeStrMacro();
         $this->mergeArrMacro();
         $this->mergeRequestMacro();
