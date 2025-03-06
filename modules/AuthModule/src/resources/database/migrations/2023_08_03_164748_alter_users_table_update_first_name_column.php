@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('full_name');
-            $table->string('first_name')->nullable()->after('id');
-            $table->string('last_name')->nullable()->after('first_name');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('full_name');
+        //     $table->string('first_name')->nullable()->after('id');
+        //     $table->string('last_name')->nullable()->after('first_name');
+        // });
     }
 
     /**
@@ -23,10 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_name');
-            $table->dropColumn('first_name');
-            $table->string('full_name');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('last_name');
+        //     $table->dropColumn('first_name');
+        //     $table->string('full_name');
+        // });
     }
 };
