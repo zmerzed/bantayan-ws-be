@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\File;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                 File::put($databasePath, '');
             }
         }
-        
+
         $this->mergeStrMacro();
         $this->mergeArrMacro();
         $this->mergeRequestMacro();
