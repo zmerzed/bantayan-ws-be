@@ -15,9 +15,19 @@ class CustomerSeeder extends Seeder
     public function run(): void
     {
         $noOfCustomers = 50;
-        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        
+    
+        if (env('DB_CONNECTION') !== 'sqlite') {
+            \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        }
+
         \DB::table('customers')->truncate();
-        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        if (env('DB_CONNECTION') !== 'sqlite') {
+            \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
+
+
         $prevDate = Carbon::now()->subMonth()->format('Y-m');
 
         for ($i=0; $i<$noOfCustomers; $i++) {
