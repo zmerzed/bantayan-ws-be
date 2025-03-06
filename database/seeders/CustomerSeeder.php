@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as Faker;
 
 class CustomerSeeder extends Seeder
 {
