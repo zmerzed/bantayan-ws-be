@@ -22,7 +22,12 @@ use App\Http\Controllers\V1\Customer\CustomerController;
 //     return $request->user();
 // });
 
-Route::group(['middleware' => ['user.role:' . Role::ADMIN, 'auth:admin']], function () {
+Route::group(['middleware' => 
+    [
+        //'user.role:' . Role::ADMIN, 
+        //'auth:admin'
+    ]
+], function () {
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('readings', ReadingController::class);
 

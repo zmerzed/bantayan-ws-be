@@ -19,4 +19,9 @@ class Reading extends Model
         'comment',
         'customer_id'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
 }
