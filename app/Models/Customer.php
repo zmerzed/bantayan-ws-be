@@ -23,7 +23,9 @@ class Customer extends Model
         'mi',
         'account_number',
         'address',
-        'brgy',
+        'brgy_id',
+        'sequence',
+        'reading_day',
         'phone_number',
         'work_phone_number',
         'account_type',
@@ -38,6 +40,12 @@ class Customer extends Model
         return $this->hasOne(CustomerDetail::class);
     }
 
+    public function barangay()
+    {
+        return $this->belongsTo(Barangay::class);
+    }
+
+    
     public static function generateAccountNo()
     {
         $date = Carbon::now();

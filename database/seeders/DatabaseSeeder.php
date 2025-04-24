@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
         Artisan::call("app:acl:sync");
         $this->call(AdminAccountSeeder::class);
         $this->call(BrgySeeder::class);
-        $this->call(CustomerSeeder::class);
-
+        //$this->call(CustomerSeeder::class);
+        //$this->call(GenerateStartReadingsSeeder::class);
+ 
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

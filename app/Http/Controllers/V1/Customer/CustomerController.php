@@ -24,9 +24,9 @@ class CustomerController extends Controller
     public function index()
     {
         $collection = QueryBuilder::for(Customer::class)
-            ->defaultSort('-created_at')
+            ->defaultSort('id')
             ->getOrPaginate();
-
+        //dd('')
         return CustomerResource::collection($collection);
     }
 

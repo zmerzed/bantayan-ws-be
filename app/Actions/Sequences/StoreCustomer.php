@@ -32,22 +32,12 @@ class StoreCustomer
             ]);
 
             if ($request->is_cron) {
-                $customerDetailsData = [
-                    'meter_no' => $data['meter_no'],
-                    'reading_day' => $data['reading_day'],
-                    'due_day' => $data['due_day']
-                ];
                 unset($data['is_cron']);
-                unset($data['meter_no']);
-                unset($data['reading_day']);
-                unset($data['due_day']);
             }
 
             $customer = Customer::create($data);
-            $customer->details()->create(array_merge([
-                'customer_id' => $customer->id,
-            ], $customerDetailsData));
-
+            $customer->details()->create(['customer_id' => $customer->id]);
+            //dd($customer);
             return $customer;
         });
 

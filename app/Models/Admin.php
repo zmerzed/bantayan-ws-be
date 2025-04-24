@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Barangay;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Traits\InteractSequence;
+use Illuminate\Database\Eloquent\Builder;
 use Kolette\Auth\Models\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia as MediaLibraryHasMedia;
-use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable implements MediaLibraryHasMedia
 {
@@ -15,6 +18,7 @@ class Admin extends Authenticatable implements MediaLibraryHasMedia
     use HasAvatar;
     use HasFactory;
     use HasApiTokens;
+    use InteractSequence;
 
     /**
      * The default guard to use
@@ -44,4 +48,12 @@ class Admin extends Authenticatable implements MediaLibraryHasMedia
         'password',
         'email',
     ];
+
+    public function scopeWithRoles(Builder $query, array $roles)
+    {
+        return $query->whereHas('roles', function ($q) use ($roles) {
+            $q->whereIn('name', $roles);
+        });
+    }
+
 }

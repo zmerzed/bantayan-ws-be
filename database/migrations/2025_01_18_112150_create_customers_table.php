@@ -17,9 +17,12 @@ return new class extends Migration
 
             $table->string('first_name', 255);
             $table->string('last_name', 255);
-            $table->string('mi', 5);
+            $table->string('mi', 100)->nullable();
             $table->string('address', 255)->nullable();
-            $table->string('brgy', 255)->nullable();
+  
+            $table->integer('barangay_id');
+            $table->integer('sequence');
+
             $table->string('phone_number', 255)->nullable();
             $table->string('work_phone_number', 255)->nullable();
             $table->string('status');

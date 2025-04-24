@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('customer_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
-            $table->string('meter_serial_no', 255)->nullable();
+            $table->integer('customer_id');
+            $table->string('meter_no', 255)->nullable();
+            $table->integer('reading_day', 255)->nullable();
+            $table->integer('due_day', 255)->nullable();
+
             $table->string('application_type_other_specify', 255)->nullable();
             $table->string('account_type_other_specify', 255)->nullable();
             $table->string('if_location_rented_name_of_owner', 255)->nullable();

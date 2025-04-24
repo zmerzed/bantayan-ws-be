@@ -6,11 +6,13 @@ use BenSampo\Enum\Enum;
 
 final class Role extends Enum
 {
+    const SUPER_ADMIN = 'SUPER_ADMIN';
+
     const ADMIN = 'ADMIN';
 
     const USER = 'USER';
 
-    const MERCHANT = 'MERCHANT';
+   /// const MERCHANT = 'MERCHANT';
 
     const CUSTOMER = 'CUSTOMER';
 
@@ -18,6 +20,14 @@ final class Role extends Enum
 
     const READER = 'READER';
     
+    public static function getAdminRoles(): array
+    {
+        return [
+            Role::ADMIN,
+            Role::READER
+        ];
+    }
+
     /**
      * The default role for all new added user
      */

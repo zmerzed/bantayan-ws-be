@@ -85,6 +85,22 @@ class ReadingController extends Controller
 
 
     /**
+     * Generate Readings
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function generate(Request $request)
+    {
+        $lead->delete();
+        $readingBatch = new ReadingBatch();
+        $readingBatch->batch = 1;
+        $readingBatch->generated_by_id = 1;
+        $readingBatch->save();
+        (new GenerateReadings())->execute($readingBatch);
+        return response()->noContent();
+    }
+
+    /**
      * Generate Account No.
      *
      * @param  \App\Models\Company  $company

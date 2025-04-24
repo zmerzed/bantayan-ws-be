@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Customer;
+namespace App\Http\Resources;
 
+use App\Http\Resources\AdminResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CustomerResource extends JsonResource
+class SequenceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +18,8 @@ class CustomerResource extends JsonResource
         return array_merge(
             parent::toArray($request),
             [
-                'barangay' => $this->barangay,
-                'details' => $this->details
+                'reader' => $this->reader,
+                'barangay' => $this->barangay
             ]
         );
     }

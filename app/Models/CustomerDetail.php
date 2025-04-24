@@ -14,6 +14,9 @@ class CustomerDetail extends Model
      */
     protected $fillable = [
         'customer_id',
+        'meter_no',
+        'reading_day',
+        'due_day'
     ];
 
     public function customer()

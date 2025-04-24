@@ -2,4 +2,10 @@ Mobile
 
 Steps to synchronize readings
 
-stutz.k.michael@gmail.com
+Hostinger
+ssh root@212.85.26.111
+
+CREATE USER 'root'@'127.0.0.1' IDENTIFIED BY 'test123456';
+GRANT ALL PRIVILEGES ON bantayan_db.* TO 'root'@'127.0.0.1';
+
+zip -r live_backup_20250422.zip public_html -x "public_html/vendor" "public_html/production"

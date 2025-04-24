@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Customer;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CustomerResource extends JsonResource
+class AdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,14 @@ class CustomerResource extends JsonResource
         return array_merge(
             parent::toArray($request),
             [
-                'barangay' => $this->barangay,
-                'details' => $this->details
+                'role' => $this->getDefaultRole(),
+                'barangay' => $this->barangay
             ]
         );
+    }
+
+    private function getDefaultRole() {
+        
+        return $this->roles?->first()?->name;
     }
 }

@@ -15,6 +15,17 @@ class AdminAccountSeeder extends Seeder
      */
     public function run()
     {
+        $superAdmin = Admin::updateOrCreate([
+            'email' => 'super_admin.ws@bantayan.com',
+        ], [
+            'full_name' => 'super admin',
+            'password' => bcrypt('password')
+        ]);
+
+        $role = Role::whereName('SUPER_ADMIN')->first();
+
+        $superAdmin->assignRole($role);
+
         $admin = Admin::updateOrCreate([
             'email' => 'admin.ws@bantayan.com',
         ], [
@@ -26,16 +37,26 @@ class AdminAccountSeeder extends Seeder
 
         $admin->assignRole($role);
 
-        
         $reader = Admin::updateOrCreate([
-            'email' => 'reader.ws@bantayan.com',
+            'email' => 'reader1.ws@bantayan.com',
         ], [
-            'full_name' => 'reader',
+            'full_name' => 'John Reader',
             'password' => bcrypt('password')
         ]);
 
         $role = Role::whereName('READER')->first();
 
         $reader->assignRole($role);
+
+        $reader2 = Admin::updateOrCreate([
+            'email' => 'reader2.ws@bantayan.com',
+        ], [
+            'full_name' => 'Joseph Reader',
+            'password' => bcrypt('password')
+        ]);
+
+        $role = Role::whereName('READER')->first();
+
+        $reader2->assignRole($role);
     }
 }

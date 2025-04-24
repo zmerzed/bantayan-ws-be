@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Barangay;
+use App\Models\Sequence;
 use Illuminate\Database\Seeder;
+use App\Models\OldCustInformation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Schema;
 
 class BrgySeeder extends Seeder
 {
@@ -13,34 +16,45 @@ class BrgySeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::table('barangays')->truncate();
+        Schema::disableForeignKeyConstraints();
 
-        Barangay::insert([
-            ['name' => 'Atop-atop', 'municipality' => 'bantayan'],
-            ['name' => 'Baigad', 'municipality' => 'bantayan'],
-            ['name' => 'Bantigue', 'municipality' => 'bantayan'],
-            ['name' => 'Baod', 'municipality' => 'bantayan'],
-            ['name' => 'Binaobao', 'municipality' => 'bantayan'],
-            ['name' => 'Botigues', 'municipality' => 'bantayan'],
-            ['name' => 'Doong', 'municipality' => 'bantayan'],
-            ['name' => 'Guiwanon', 'municipality' => 'bantayan'],
-            ['name' => 'Hilotongan', 'municipality' => 'bantayan'],
-            ['name' => 'Kabac', 'municipality' => 'bantayan'],
-            ['name' => 'Kabangbang', 'municipality' => 'bantayan'],
-            ['name' => 'Kampingganon', 'municipality' => 'bantayan'],
-            ['name' => 'Kangkaibe', 'municipality' => 'bantayan'],
-            ['name' => 'Lipayran', 'municipality' => 'bantayan'],
-            ['name' => 'Luyongbaybay', 'municipality' => 'bantayan'],
-            ['name' => 'Mojon', 'municipality' => 'bantayan'],
-            ['name' => 'Obo-ob', 'municipality' => 'bantayan'],
-            ['name' => 'Patao', 'municipality' => 'bantayan'],
-            ['name' => 'Putian', 'municipality' => 'bantayan'],
-            ['name' => 'Sillon', 'municipality' => 'bantayan'],
-            ['name' => 'Suba', 'municipality' => 'bantayan'],
-            ['name' => 'Sulangan', 'municipality' => 'bantayan'],
-            ['name' => 'Sungko', 'municipality' => 'bantayan'],
-            ['name' => 'Tamiao', 'municipality' => 'bantayan'],
-            ['name' => 'Ticad', 'municipality' => 'bantayan']
-        ]);
+        \DB::table('barangays')->truncate();
+        \DB::table('sequences')->truncate();
+
+        $oldCustomers = OldCustInformation::query()
+            ->distinct()
+            ->orderBy('custBarangay', 'asc')
+            ->get(['custBarangay']);
+
+        foreach($oldCustomers as $customer) {
+            $brgy = Barangay::insert([
+                ['name' => $customer->custBarangay, 'municipality' => 'bantayan'],
+            ]);
+        }
+
+        $oldSequences = OldCustInformation::query()
+            ->distinct()
+            ->orderBy('sequence', 'desc')
+            ->get(['sequence']);
+
+        foreach($oldSequences as $sequence) 
+        {
+            $oldSequence = OldCustInformation::where('sequence', $sequence->sequence)->first();
+            
+            if ($oldSequence && $brgy = Barangay::where('name', $oldSequence->custBarangay)->first()) 
+            {
+                $sequence = Sequence::create([
+                    'number' => $sequence->sequence,
+                    'barangay_id' => $brgy->id,
+                    'admin_id' => rand(
+                        3, // reader admin ID: 3
+                        4
+                    ) // reader admin ID: 4
+                ]);
+
+            }
+        }
+
+        Schema::enableForeignKeyConstraints();
     }
 }
