@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->string('meter_no', 255)->nullable();
-            $table->integer('reading_day', 255)->nullable();
-            $table->integer('due_day', 255)->nullable();
+            $table->integer('reading_day')->nullable();
+            $table->integer('due_day')->nullable();
 
             $table->string('application_type_other_specify', 255)->nullable();
             $table->string('account_type_other_specify', 255)->nullable();
