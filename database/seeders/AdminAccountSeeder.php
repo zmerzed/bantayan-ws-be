@@ -21,7 +21,7 @@ class AdminAccountSeeder extends Seeder
             'full_name' => 'super admin',
             'password' => bcrypt('password')
         ]);
-
+        //bantayanwsapi.techcoology.com
         $role = Role::whereName('SUPER_ADMIN')->first();
 
         $superAdmin->assignRole($role);
