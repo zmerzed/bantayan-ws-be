@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Customer;
 
+use App\Models\Sequence;
+use App\Http\Resources\SequenceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CustomerResource extends JsonResource
@@ -18,8 +20,17 @@ class CustomerResource extends JsonResource
             parent::toArray($request),
             [
                 'barangay' => $this->barangay,
-                'details' => $this->details
+                'details' => $this->details,
+                'full_name' => $this->last_name . ", " . $this->first_name . " " . $this->mi,
+                'sequence_detail' => SequenceResource::make($this->getSequence())
             ]
         );
+    }
+
+    private function getSequence()
+    {
+        return Sequence::where('number', $this->sequence)
+            ->where('barangay_id', $this->barangay_id)
+            ->first();
     }
 }

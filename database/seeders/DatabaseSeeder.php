@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BrgySeeder;
+use Database\Seeders\OldCustomerSeeder;
 use Illuminate\Support\Facades\Artisan;
 use Database\Seeders\AdminAccountSeeder;
 
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
         Artisan::call("app:acl:sync");
         $this->call(AdminAccountSeeder::class);
         $this->call(BrgySeeder::class);
+        $this->call(OldCustomerSeeder::class);
+
         //$this->call(CustomerSeeder::class);
         //$this->call(GenerateStartReadingsSeeder::class);
  

@@ -33,16 +33,28 @@ class BrgySeeder extends Seeder
         }
 
         $oldSequences = OldCustInformation::query()
-            ->distinct()
-            ->orderBy('sequence', 'desc')
+            //->distinct()
+            ->orderBy('sequence', 'ASC')
             ->get(['sequence']);
 
         foreach($oldSequences as $sequence) 
         {
             $oldSequence = OldCustInformation::where('sequence', $sequence->sequence)->first();
-            
+
             if ($oldSequence && $brgy = Barangay::where('name', $oldSequence->custBarangay)->first()) 
             {
+                $existingSequence = Sequence::query()
+                ->where('number', $oldSequence->sequence)
+                ->where('barangay_id', $brgy->id)
+                ->first();
+
+                if ($existingSequence) {
+                    continue;
+                }
+
+                echo "Barangay: {$brgy->id} - {$oldSequence->custBarangay} \n";
+                echo "Sequence: {$sequence->sequence}\n";
+
                 $sequence = Sequence::create([
                     'number' => $sequence->sequence,
                     'barangay_id' => $brgy->id,

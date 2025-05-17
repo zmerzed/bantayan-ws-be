@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\BrgyController;
 use App\Http\Controllers\V1\SequenceController;
 use App\Http\Controllers\V1\Admin\AdminController;
+use App\Http\Controllers\V1\Admin\ReadingController;
 use App\Http\Controllers\V1\Admin\SettingsController;
-use App\Http\Controllers\V1\Customer\ReadingController;
 use App\Http\Controllers\V1\Customer\CustomerController;
 
 /*
@@ -33,8 +33,6 @@ Route::group(['middleware' =>
     ]
 ], function () {
     Route::apiResource('customers', CustomerController::class);
-    Route::apiResource('readings', ReadingController::class);
-    Route::post('readings/generate', [ReadingController::class, 'generate']);
     Route::apiResource('admins', AdminController::class);
  
     Route::group(['prefix' => 'customer'], function () {
@@ -45,5 +43,8 @@ Route::group(['middleware' =>
     Route::apiResource('sequences', SequenceController::class);
 
     Route::get('settings', [SettingsController::class, 'index']);
+
+    Route::apiResource('readings', ReadingController::class);
+    Route::post('readings/generate', [ReadingController::class, 'generate']);
 
 });

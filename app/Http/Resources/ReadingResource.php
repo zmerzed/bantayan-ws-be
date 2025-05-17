@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Admin;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Customer\CustomerResource;
 
 class ReadingResource extends JsonResource
 {
@@ -17,8 +19,14 @@ class ReadingResource extends JsonResource
         return array_merge(
             parent::toArray($request),
             [
-                'customer' => $this->customer
+                'customer' => CustomerResource::make($this->customer),
+                //'reader' => $this->getReader()
             ]
         );
+    }
+
+    public function getReader()
+    {
+        return Admin::where('id', $this->admin_id)->first();
     }
 }

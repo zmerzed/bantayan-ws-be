@@ -26,7 +26,6 @@ class CustomerController extends Controller
         $collection = QueryBuilder::for(Customer::class)
             ->defaultSort('id')
             ->getOrPaginate();
-        //dd('')
         return CustomerResource::collection($collection);
     }
 

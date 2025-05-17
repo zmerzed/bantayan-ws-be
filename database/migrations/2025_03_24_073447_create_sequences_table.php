@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sequences', function (Blueprint $table) {
             $table->id();
             $table->integer('barangay_id');
-            $table->integer('number')->unique();
+            $table->integer('number');
             $table->integer('admin_id')->nullable();
             $table->timestamps();
         });

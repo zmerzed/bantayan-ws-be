@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\V1\Customer;
+namespace App\Http\Controllers\V1\Admin;
 
 use App\Models\Reading;
+use App\Models\Barangay;
 use App\Models\Customer;
+use App\Models\Sequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -11,7 +13,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Resources\ReadingResource;
 use App\Actions\Customers\StoreCustomer;
+use App\Actions\Readings\ReaderReadings;
 use App\Actions\Customers\UpdateCustomer;
+use App\Actions\Readings\GenerateReadings;
 use App\Http\Resources\Customer\CustomerResource;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Requests\Customer\CustomerUpdateRequest;
@@ -25,11 +29,18 @@ class ReadingController extends Controller
      */
     public function index()
     {
-        $collection = QueryBuilder::for(Reading::class)
-            ->defaultSort('-created_at')
-            ->getOrPaginate();
 
-        return ReadingResource::collection($collection);
+        if (request()->has('generate') && request()->has('day') && request()->has('barangay_id')) {
+            $readings = (new GenerateReadings())
+                ->execute(
+                    Barangay::find(request()->barangay_id),
+                    (int) request()->day
+                );
+        } else {
+            $readings = (new ReaderReadings())->get();
+        }
+
+        return ReadingResource::collection($readings);
     }
 
     /**
@@ -91,13 +102,13 @@ class ReadingController extends Controller
      */
     public function generate(Request $request)
     {
-        $lead->delete();
-        $readingBatch = new ReadingBatch();
-        $readingBatch->batch = 1;
-        $readingBatch->generated_by_id = 1;
-        $readingBatch->save();
-        (new GenerateReadings())->execute($readingBatch);
-        return response()->noContent();
+        $readings = (new GenerateReadings())
+            ->execute(
+                Barangay::find($request->barangay_id),
+                (int) $request->day
+            );
+        
+        return ReadingResource::collection($readings);
     }
 
     /**

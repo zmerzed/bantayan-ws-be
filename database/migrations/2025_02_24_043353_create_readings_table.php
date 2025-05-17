@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('readings', function (Blueprint $table) {
             $table->id();
-            $table->integer('batch_no');
+            //$table->integer('batch_no');
             $table->integer('customer_id');
+            $table->integer('month_no');
+            $table->integer('year');
+            $table->integer('reading_day');
+            $table->integer('sequence');
+            $table->integer('reader_id');
             $table->string('meter_reading', 255)->nullable();
             $table->string('prev_meter_reading', 255)->nullable();
             $table->date('meter_reading_date')->nullable();
