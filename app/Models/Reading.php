@@ -31,8 +31,8 @@ class Reading extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function reader()
+    public function readedBy()
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Admin::class, 'readed_by');
     }
 }

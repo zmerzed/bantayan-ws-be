@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('year');
             $table->integer('reading_day');
             $table->integer('sequence');
-            $table->integer('reader_id');
+            $table->integer('readed_by')->nullable();
             $table->string('meter_reading', 255)->nullable();
             $table->string('prev_meter_reading', 255)->nullable();
             $table->date('meter_reading_date')->nullable();

@@ -45,7 +45,13 @@ class Customer extends Model
         return $this->belongsTo(Barangay::class);
     }
 
-    
+    public function getSequence()
+    {
+        return Sequence::where('number', $this->sequence)
+            ->where('barangay_id', $this->barangay_id)
+            ->first();
+    }
+
     public static function generateAccountNo()
     {
         $date = Carbon::now();

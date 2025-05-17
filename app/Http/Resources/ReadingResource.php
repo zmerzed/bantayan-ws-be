@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Admin;
+use App\Http\Resources\AdminResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Customer\CustomerResource;
 
@@ -20,13 +21,8 @@ class ReadingResource extends JsonResource
             parent::toArray($request),
             [
                 'customer' => CustomerResource::make($this->customer),
-                //'reader' => $this->getReader()
+                'readed_by' => AdminResource::make($this->readedBy)
             ]
         );
-    }
-
-    public function getReader()
-    {
-        return Admin::where('id', $this->admin_id)->first();
     }
 }

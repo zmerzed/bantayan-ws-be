@@ -26,11 +26,4 @@ class CustomerResource extends JsonResource
             ]
         );
     }
-
-    private function getSequence()
-    {
-        return Sequence::where('number', $this->sequence)
-            ->where('barangay_id', $this->barangay_id)
-            ->first();
-    }
 }

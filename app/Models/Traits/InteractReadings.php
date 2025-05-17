@@ -58,7 +58,7 @@ trait InteractReadings
             $newReading->year = $today->year;
             $newReading->reading_day = $readingDay;
             $newReading->sequence = $this->sequence;
-            
+
             if ($previousReading) {
                 $newReading->prev_meter_reading = $previousReading->meter_reading;
             }
