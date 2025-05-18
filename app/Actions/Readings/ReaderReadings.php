@@ -15,7 +15,15 @@ class ReaderReadings
         $readerAdmin = request()->user();
         //dd($readerAdmin);
         $readings = QueryBuilder::for(Reading::class)
-            ->defaultSort('-created_at')
+            ->where('assigned_reader_id', $readerAdmin->id);
+
+        if (request()->has('barangay_id')) {
+            $readings = $readings->whereHas('customer', function($query) {
+                $query->where('barangay_id', request()->barangay_id);
+            });
+        }
+
+        $readings = $readings->defaultSort('-created_at')
             ->getOrPaginate();
 
         return $readings;

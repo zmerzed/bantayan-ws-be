@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use Carbon\Carbon;
+use App\Models\Admin;
 use App\Models\Reading;
 use App\Models\ReadingBatch;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -34,7 +35,7 @@ trait InteractReadings
     | Helpers
     |--------------------------------------------------------------------------
     */
-    public function generateNewReading($readingDay = null): void
+    public function generateNewReading(int $readingDay, Admin $reader): void
     {
         $today = Carbon::now();
         //$today = Carbon::parse('2025-05-01');
@@ -58,6 +59,7 @@ trait InteractReadings
             $newReading->year = $today->year;
             $newReading->reading_day = $readingDay;
             $newReading->sequence = $this->sequence;
+            $newReading->assigned_reader_id = $reader->id;
 
             if ($previousReading) {
                 $newReading->prev_meter_reading = $previousReading->meter_reading;

@@ -30,7 +30,10 @@ class ReadingController extends Controller
     public function index()
     {
 
-        if (request()->has('generate') && request()->has('day') && request()->has('barangay_id')) {
+        if (request()->has('generate') && 
+            request()->has('day') && 
+            request()->has('barangay_id')
+        ) {
             $readings = (new GenerateReadings())
                 ->execute(
                     Barangay::find(request()->barangay_id),

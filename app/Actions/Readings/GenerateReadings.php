@@ -20,33 +20,40 @@ class GenerateReadings
     {
         //dd($brgy);
 
-        $ids_sequence = Sequence::query()
+        $sequences = Sequence::query()
             ->where('barangay_id', $brgy->id)
-            ->get()
-            ->pluck('number')
-            ->toArray();
-
-        
-        //dd($ids_sequence);
-        
-        $customers = Customer::query()
-            ->whereHas('details', function($query) use($day) {
-                return $query->where('reading_day', $day);
-            })
-            ->where('barangay_id', $brgy->id)
-            ->whereIn('sequence', $ids_sequence)
             ->get();
-        
-        foreach ($customers as $customer)  
+            //->pluck('number')
+            //->toArray();
+        $numbers_sequence = [];
+
+        foreach ($sequences as $sequence)
         {
-            $customer->generateNewReading($day);
+            $customers = Customer::query()
+                ->whereHas('details', function($query) use($day, $sequence) {
+                    return $query->where('reading_day', $day);
+                })
+                ->where('barangay_id', $brgy->id)
+                ->where('sequence', $sequence->number)
+                ->get();
+            
+            foreach ($customers as $customer)  
+            {
+                //dd($sequence->reader);
+                if ($sequence->reader) {
+                    $customer->generateNewReading($day, $sequence->reader);
+                }
+            }
+
+            $numbers_sequence[] = $sequence->number;
         }
+ 
 
         ///dd($customers);
         $today = Carbon::now();
         $readings = Reading::query()
             ->where('reading_day', $day)
-            ->whereIn('sequence', $ids_sequence)
+            ->whereIn('sequence', $numbers_sequence)
             ->where('month_no', $today->month)
             ->where('year', $today->year)
             ->get();

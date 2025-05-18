@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('reading_day');
             $table->integer('sequence');
             $table->integer('readed_by')->nullable();
+            $table->integer('assigned_reader_id')->nullable();
             $table->string('meter_reading', 255)->nullable();
             $table->string('prev_meter_reading', 255)->nullable();
             $table->date('meter_reading_date')->nullable();

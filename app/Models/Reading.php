@@ -35,4 +35,9 @@ class Reading extends Model
     {
         return $this->belongsTo(Admin::class, 'readed_by');
     }
+
+    public function assignedReader()
+    {
+        return $this->belongsTo(Admin::class, 'assigned_reader_id');
+    }
 }
