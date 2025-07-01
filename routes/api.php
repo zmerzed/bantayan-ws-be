@@ -45,6 +45,7 @@ Route::group(['middleware' =>
     Route::get('settings', [SettingsController::class, 'index']);
 
     Route::apiResource('readings', ReadingController::class);
-    Route::post('readings/generate', [ReadingController::class, 'generate']);
+    Route::put('readings/{reading}/sync', [ReadingController::class, 'sync']);
 
+    Route::post('readings/generate', [ReadingController::class, 'generate']);
 });

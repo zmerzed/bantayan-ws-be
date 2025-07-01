@@ -9,6 +9,7 @@ use App\Models\Sequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Actions\Readings\SyncReading;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use App\Http\Resources\ReadingResource;
@@ -16,6 +17,7 @@ use App\Actions\Customers\StoreCustomer;
 use App\Actions\Readings\ReaderReadings;
 use App\Actions\Customers\UpdateCustomer;
 use App\Actions\Readings\GenerateReadings;
+use App\Http\Requests\Reading\ReadingSyncRequest;
 use App\Http\Resources\Customer\CustomerResource;
 use App\Http\Requests\Customer\CustomerStoreRequest;
 use App\Http\Requests\Customer\CustomerUpdateRequest;
@@ -44,6 +46,17 @@ class ReadingController extends Controller
         }
 
         return ReadingResource::collection($readings);
+    }
+
+    /**
+     * Sync Reading
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sync(ReadingSyncRequest $request, Reading $reading)
+    {
+        return ReadingResource::make((new SyncReading)->execute($reading));
     }
 
     /**

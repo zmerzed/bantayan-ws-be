@@ -23,7 +23,8 @@ class Reading extends Model
         'reading_day',
         'sequence',
         'reader_id',
-        'customer_id'
+        'customer_id',
+        'comment'
     ];
 
     public function customer()
